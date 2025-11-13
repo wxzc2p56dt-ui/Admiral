@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admiral</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+        <style>
+/* ✅ Плавное появление/исчезновение секций без слайдов */
+.section {
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.section.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+  visibility: visible;
+}
+.hero-section-bg {
+        background: 
+            linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+            url('./icon/фон1.svg'); /* Заменил фон для примера */
+        background-size: cover;
+        background-position: center;
+    }
+
+
+
+
+
+        /* Мобильные устройства (до 768px) */
+            @media (max-width: 768px) {
+                .adaptive-hero img.min-w-1920 {
+                    min-width: 100% !important;
+                    min-height: auto !important;
+                }
+                .adaptive-logo {
+                    left: 20px !important;
+                    top: 20px !important;
+                    max-width: 60px !important;
+                    max-height: 60px !important;
+                }
+                .adaptive-logo-text {
+                    left: 90px !important;
+                    top: 25px !important;
+                    max-width: 150px !important;
+                }
+                .adaptive-address {
+                    left: 20px !important;
+                    top: 100px !important;
+                    font-size: 14px !important;
+                    text-align: center;
+                    width: calc(100% - 40px) !important;
+                }
+                .adaptive-phone {
+                    left: 20px !important;
+                    top: 140px !important;
+                    font-size: 16px !important;
+                    width: calc(100% - 40px) !important;
+                    text-align: center;
+                }
+                .adaptive-title {
+                    font-size: 32px !important;
+                    margin-left: 20px !important;
+                    margin-top: 200px !important;
+                    text-align: center;
+                    width: calc(100% - 40px) !important;
+                }
+                .adaptive-subtitle {
+                    font-size: 24px !important;
+                    margin-left: 20px !important;
+                    margin-top: 260px !important;
+                    text-align: center;
+                    width: calc(100% - 40px) !important;
+                }
+                .adaptive-button {
+                    margin-left: 20px !important;
+                    margin-top: 320px !important;
+                    padding: 12px 24px !important;
+                    font-size: 18px !important;
+                    width: calc(100% - 40px) !important;
+                }
+                .adaptive-nav ul {
+                    flex-direction: column;
+                    gap: 10px !important;
+                }
+                .adaptive-nav {
+                    flex-direction: column;
+                    gap: 20px;
+                    padding: 15px !important;
+                }
+                .adaptive-section {
+                    margin-left: 20px !important;
+                    padding: 20px !important;
+                    flex-direction: column;
+                }
+                .adaptive-text {
+                    font-size: 18px !important;
+                }
+                .adaptive-heading {
+                    font-size: 32px !important;
+                }
+            }
+
+            /* Планшеты (769px - 1024px) */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .adaptive-logo {
+                    left: 40px !important;
+                    top: 25px !important;
+                    max-width: 80px !important;
+                    max-height: 80px !important;
+                }
+                .adaptive-logo-text {
+                    left: 130px !important;
+                    top: 30px !important;
+                    max-width: 200px !important;
+                }
+                .adaptive-address {
+                    left: 40px !important;
+                    top: 120px !important;
+                    font-size: 16px !important;
+                    width: 60% !important;
+                }
+                .adaptive-phone {
+                    left: auto !important;
+                    right: 40px !important;
+                    top: 120px !important;
+                    font-size: 18px !important;
+                    width: auto !important;
+                }
+                .adaptive-title {
+                    font-size: 60px !important;
+                    margin-left: 40px !important;
+                    margin-top: 250px !important;
+                    text-align: left;
+                    width: 80% !important;
+                }
+                .adaptive-subtitle {
+                    font-size: 40px !important;
+                    margin-left: 40px !important;
+                    margin-top: 320px !important;
+                    text-align: left;
+                    width: 80% !important;
+                }
+                .adaptive-button {
+                    margin-left: 40px !important;
+                    margin-top: 400px !important;
+                    padding: 14px 28px !important;
+                    font-size: 20px !important;
+                    width: auto !important;
+                }
+                .adaptive-nav ul {
+                    gap: 20px !important;
+                }
+                .adaptive-nav {
+                    padding: 20px !important;
+                }
+                .adaptive-section {
+                    margin-left: 40px !important;
+                    padding: 30px !important;
+                }
+                .adaptive-text {
+                    font-size: 22px !important;
+                }
+                .adaptive-heading {
+                    font-size: 48px !important;
+                }
+            }
+
+            /* Ноутбуки (1025px - 1440px) */
+            @media (min-width: 1025px) and (max-width: 1440px) {
+                .adaptive-logo {
+                    left: 60px !important;
+                    top: 30px !important;
+                    max-width: 90px !important;
+                    max-height: 90px !important;
+                }
+                .adaptive-logo-text {
+                    left: 160px !important;
+                    top: 35px !important;
+                    max-width: 240px !important;
+                }
+                .adaptive-address {
+                    left: 500px !important;
+                    top: 50px !important;
+                    font-size: 18px !important;
+                    width: auto !important;
+                }
+                .adaptive-phone {
+                    left: 1200px !important;
+                    top: 50px !important;
+                    font-size: 18px !important;
+                    width: auto !important;
+                }
+                .adaptive-title {
+                    font-size: 80px !important;
+                    margin-left: 60px !important;
+                    margin-top: 300px !important;
+                    text-align: left;
+                    width: auto !important;
+                }
+                .adaptive-subtitle {
+                    font-size: 50px !important;
+                    margin-left: 60px !important;
+                    margin-top: 380px !important;
+                    text-align: left;
+                    width: auto !important;
+                }
+                .adaptive-button {
+                    margin-left: 60px !important;
+                    margin-top: 480px !important;
+                    padding: 16px 32px !important;
+                    font-size: 22px !important;
+                    width: auto !important;
+                }
+                .adaptive-text {
+                    font-size: 26px !important;
+                }
+                .adaptive-heading {
+                    font-size: 56px !important;
+                }
+            }
+
+            /* Компьютеры (1441px и выше) */
+            @media (min-width: 1441px) {
+                .adaptive-logo {
+                    left: 97px !important;
+                    top: 28.5px !important;
+                    max-width: 104px !important;
+                    max-height: 104px !important;
+                }
+                .adaptive-logo-text {
+                    left: 205px !important;
+                    top: 36px !important;
+                    max-width: 277px !important;
+                }
+                .adaptive-address {
+                    left: 530px !important;
+                    top: 64px !important;
+                    font-size: 17px !important;
+                    width: auto !important;
+                }
+                .adaptive-phone {
+                    left: 1450px !important;
+                    top: 62px !important;
+                    font-size: 20px !important;
+                    width: auto !important;
+                }
+                .adaptive-title {
+                    font-size: 75px !important;
+                    margin-left: 100px !important;
+                    margin-top: 400px !important;
+                    text-align: left;
+                    width: auto !important;
+                }
+                .adaptive-subtitle {
+                    font-size: 57px !important;
+                    margin-left: 100px !important;
+                    margin-top: 450px !important;
+                    text-align: left;
+                    width: auto !important;
+                }
+                .adaptive-button {
+                    margin-left: 100px !important;
+                    margin-top: 640px !important;
+                    padding: 12px 56px !important;
+                    font-size: 24px !important;
+                    width: auto !important;
+                }
+                .adaptive-text {
+                    font-size: 32px !important;
+                }
+                .adaptive-heading {
+                    font-size: 64px !important;
+                }
+            }
+
+              
+
+        </style>
+    </head>
+<style>
+  .font-handwritten {
+    font-family: 'Caveat', cursive;
+  }
+</style>
+
+<body>
+
+<div class="relative inline-block adaptive-hero">
+  <img class="min-w-1920 min-h-1009" src="./icon/img_s.svg" alt="Пример" class="w-full rounded-lg">
+
+  <div class="absolute inset-0">
+    <img class="max-w-[104px] max-h-[104px] absolute left-[97px] top-[28.5px] adaptive-logo" src="./icon/ВК лого Адмирал ПНГ на награды 1.svg">
+  </div>
+  <div class="absolute inset-0">
+    <img class="max-w-[277px] max-h-[89px] absolute left-[205px] top-[36px] adaptive-logo-text" src="./icon/logo-text.svg">
+  </div>
+  <div class="absolute inset-0">
+    <p class="justify-center items-center text-[20px] text-white absolute left-[704px] top-[64px] adaptive-address">м. Коломенская, м. Кленовый бульвар, м. Нагатинский затон, м. Кантемировская, м.Орехово, м. Царицыно</p>
+  </div>
+  <div class="absolute inset-0">
+    <p class="text-[20px] text-white absolute left-[1450px] top-[64px] adaptive-phone">8 (926) 597 57 57</p>
+  </div>
+  <div class="absolute inset-0">
+    <p class="text-white text-[70px] font-bold mt-[400px] ml-[100px] justify-center items-center adaptive-title">ФУТБОЛЬНАЯ ШКОЛА</p>
+  </div>
+  <div class="absolute inset-0"><br>
+    <p class="text-white text-[57px] font-bold mt-[500px] ml-[100px] justify-center items-center adaptive-subtitle">АДМИРАЛ-ВМФ</p>
+  </div>
+  <div class="absolute inset-0">
+    <button class="bg-[#0000FF] py-3 px-14 rounded-[30px] text-[24px] text-white ml-[100px] mt-[690px] w-fit gap-2 adaptive-button">записаться</button>
+  </div>
+</div>
+
+ 
+  <nav class="relative z-10 -mt-10 mx-auto w-[90%] max-w-8xl bg-white flex items-center justify-between px-10 py-2 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] adaptive-nav">
+
+    
+    <ul class="flex space-x-12 font-[400px] text-gray-900">
+      <li class="text-[24px] hover:text-blue-600 cursor-pointer">ГЛАВНАЯ</li>
+      <li id="nav-clubs" class="text-[24px] hover:text-blue-600 cursor-pointer">КЛУБЫ</li>
+      <li class="text-[24px] hover:text-blue-600 cursor-pointer">ТРЕНЕРСКИЙ ШТАБ</li>
+      <li class="text-[24px] hover:text-blue-600 cursor-pointer">НАШИ УЧЕНИКИ</li>
+    </ul>
+
+    
+    <div class="flex items-center space-x-4">
+      <a href="#" class="rounded-full p-2 text-white hover:opacity-80 transition">
+        <img src="./icon/иконка вотцап.svg" class="w-[45px] h-[45px]"/>
+      </a>
+
+      <a href="#" class="rounded-lg p-2 text-white hover:opacity-80 transition">
+        <img src="./icon/иконка вк.svg" class="w-[45px] h-[45px]"/>
+      </a>
+
+      <a href="#" class="rounded-full p-2 text-white hover:opacity-80 transition">
+        <img src="./icon/иконка тг.svg" class="w-[45px] h-[45px]">
+      </a>
+    </div>
+  </nav>
+
+
+  <div class="h-30"></div> 
+
+  <section id="philosophy-section" class="section active ml-[70px] mx-auto px-6 py-20 flex flex-col md:flex-row items-start gap-12 adaptive-section">
+    
+    <div class="flex-1">
+      
+      <h2 class="text-[64px] font-extrabold leading-tight mb-6 adaptive-heading">
+        ФИЛОСОФИЯ <br>
+        <span class="relative inline-block">
+          НАШЕЙ ШКОЛЫ
+          
+          <span class="absolute bottom-0 w-full h-2 rounded-md"></span>
+        </span>
+      </h2>
+
+     
+      <p class="text-[20px] leading-relaxed mb-6 adaptive-text">
+        <span class="font-bold">Каждый тренер нашей школы знает основные фазы роста и развития юных игроков.</span>
+        Это важно, ведь любой ребёнок — индивидуален. Мы уважаем особенности каждого спортсмена и не навязываем ему свою «модель» физического воспитания.
+      </p>
+
+      <p class="text-[20px] leading-relaxed mb-6 adaptive-text">
+        <span class="font-bold">Наша модель нацелена на развитие и раскрытие потенциала молодых спортсменов.</span>
+        Мы убеждены, что результат работы тренера не измеряется количеством титулов и медалей.
+      </p>
+
+      <p class="text-[20px] leading-relaxed adaptive-text">
+        <span class="font-bold">Главная задача нашей школы — воспитание и обучение футболиста,</span>
+        который станет полноценным, сильным и здоровым членом общества.
+      </p>
+    </div>
+
+   
+    <div class="flex-1">
+      <img src="./icon/EEES1688 2.svg" alt="Тренеры школы" class="max-w-[811px] max-h-[796px] w-full h-auto">
+    </div>
+  </section>
+
+
+  <!-- СЕКЦИЯ КЛУБОВ (изначально скрыта) -->
+<section id="clubs-section" class="section hidden relative min-h-screen w-full text-white font-[Manrope] overflow-hidden">
+  <!-- Фон с затемнением -->
+  <div class="absolute inset-0 bg-[url('./icon/отдел-клубы-фон.svg')] bg-cover bg-center brightness-[0.55] -z-10"></div>
+
+  <div class="relative w-full max-w-7xl mx-auto flex flex-col justify-center gap-20 px-8 py-16 md:py-24">
+
+    <!-- Заголовок -->
+    <div class="text-center mb-10">
+      <h2 class="text-[clamp(22px,3vw,40px)] font-black uppercase leading-tight">
+        ФУТБОЛЬНЫЕ КЛУБЫ
+      </h2>
+      <p class="text-white/80 text-[clamp(12px,1.2vw,16px)] mt-2">
+        Для родителей наших воспитанников — футбол стал общим делом и примером для детей
+      </p>
+    </div>
+
+    <!-- Женский клуб -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+      <div class="md:max-w-[55%] text-center md:text-left">
+        <h3 class="text-[clamp(18px,2vw,32px)] uppercase font-extrabold mb-3 leading-tight">
+          ЖЕНСКИЙ ФУТБОЛЬНЫЙ<br>КЛУБ
+        </h3>
+        <p class="text-[clamp(12px,1.1vw,16px)] leading-relaxed text-white/90">
+          Создавая женскую футбольную команду для мам воспитанников "Адмирал ВМФ", мы руководствовались двумя идеями.<br><br>
+          <b>Во-первых</b> — футбол это спорт, доступный каждому.<br><br>
+          <b>Во-вторых</b> — проще понять и поддержать ребёнка, если понимаешь спорт, которым он живёт.<br><br>
+          Наши мамы дважды в неделю тренируются под руководством опытного тренера и участвуют в турнирах.<br>
+          <b>Будем рады видеть и вас в нашей команде!</b>
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-3 items-center md:items-end">
+        <img src="./icon/women1.svg" alt="Женская команда" class="w-[725px] h-[180px] bg-gray-300 object-cover rounded-lg hover:scale-105 transition-transform duration-300"/>
+        <img src="./icon/women2.svg" alt="Женская команда" class="w-[725px] h-[180px] bg-gray-300 object-cover rounded-lg hover:scale-105 transition-transform duration-300"/>
+      </div>
+    </div>
+
+    <!-- Отцовский клуб -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="flex-shrink-0">
+        <img src="./icon/men1.svg" alt="Отцовский клуб" class="w-[725px] h-[250px] bg-gray-300 object-cover rounded-lg hover:scale-105 transition-transform duration-300"/>
+      </div>
+
+      <div class="md:max-w-[55%] text-center md:text-left">
+        <h3 class="text-[clamp(18px,2vw,32px)] uppercase font-extrabold mb-3 leading-tight">
+          ОТЦОВСКИЙ ФУТБОЛЬНЫЙ<br>КЛУБ
+        </h3>
+        <p class="text-[clamp(12px,1.1vw,16px)] leading-relaxed text-white/90">
+          Каждый ребёнок мечтает увидеть, как его отец играет в футбол и празднует победы.<br><br>
+          Отцам наших воспитанников мы предлагаем присоединиться к отцовской команде.<br><br>
+          <b>Тренировки, регулярные игры и дружеская атмосфера</b> — это не только спорт, но и пример для детей.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="coaches-section" class="section hidden min-h-screen w-full flex flex-col items-center justify-start text-center px-[2vw] py-[3vh] bg-[url('./icon/отдел-наши-ученики-фон.svg')] bg-cover bg-center text-white font-manrope">
+  <h1 class="font-[900] text-[clamp(18px,2.6vw,36px)] leading-tight">
+    ТРЕНЕРСКИЙ ШТАБ
+    <span class="block w-20 h-[3px] bg-white mx-auto mt-2"></span>
+  </h1>
+
+  <div class="grid grid-cols-3 grid-rows-2 gap-y-[2.5vh] gap-x-[2vw] mt-[4vh] flex-grow content-center justify-items-center scale-[0.92]
+              md:grid-cols-2 md:grid-rows-3 md:scale-[0.85]
+              sm:grid-cols-1 sm:scale-[0.8]">
+
+    <!-- Пример карточки тренера -->
+    <div class="flex flex-col items-center text-left transition-transform duration-300 hover:-translate-y-1">
+      <div class="w-[250px] h-[250px] bg-gray-400 mb-[1.2vh]"></div>
+      <div class="w-[250px] font-bold text-[clamp(11px,1vw,14px)] mb-[0.5vh] leading-snug">
+        КУЗНЕЦОВ <br> НИКИТА ЕВГЕНЬЕВИЧ
+      </div>
+      <div class="w-[250px] text-[clamp(10px,0.9vw,12px)] leading-snug text-white/90">
+        Педагог <br> Главный тренер <br> Лицензия C UEFA <br> Опыт с 2013 г
+      </div>
+    </div>
+
+    <!-- Повтори остальные карточки по желанию -->
+  </div>
+</section>
+
+
+
+<section id="people-sections" class="section relative hidden h-screen w-full flex flex-col items-center justify-start text-center px-[2vw] py-[3vh] font-manrope text-white overflow-hidden">
+  <!-- затемнённый фон -->
+  <div class="absolute inset-0 bg-[url('./icon/отдел-наши-ученики-фон.svg')] bg-cover bg-center brightness-[0.55] -z-10"></div>
+
+  <!-- заголовок -->
+  <h1 class="font-[900] text-[clamp(18px,2.6vw,36px)] leading-tight">
+    НАША ШКОЛА
+    <span class="block font-semibold text-[clamp(10px,1vw,14px)] mt-[0.6vh]">
+      — ЭТО ПЕРВЫЙ ШАГ НА ПУТИ В ЛУЧШИЕ АКАДЕМИИ
+    </span>
+  </h1>
+
+  <!-- сетка -->
+  <div class="grid grid-cols-3 grid-rows-2 gap-y-[2.5vh] gap-x-[2vw] flex-grow content-center justify-items-center mt-[4vh] transform scale-[0.92]
+              md:grid-cols-2 md:grid-rows-3 md:scale-[0.85]
+              sm:grid-cols-1 sm:scale-[0.8]">
+    
+    <!-- карточка ученика -->
+    <div class="flex flex-col items-center text-left">
+      <div class="w-[170px] h-[170px] bg-gray-400 bg-cover bg-center mb-[1.2vh]" style="background-image:url('')"></div>
+      <div class="w-[170px] font-bold text-[clamp(11px,1vw,14px)] mb-[0.5vh] leading-snug">
+        КУЗНЕЦОВ <br> НИКИТА ЕВГЕНЬЕВИЧ
+      </div>
+      <div class="w-[170px] text-[clamp(10px,0.9vw,12px)] leading-snug text-white/90">
+        Педагог <br> Главный тренер <br> Лицензия C UEFA <br> Опыт с 2013 г
+      </div>
+    </div>
+
+    <!-- копии карточек -->
+    <div class="flex flex-col items-center text-left">
+      <div class="w-[170px] h-[170px] bg-gray-400 bg-cover bg-center mb-[1.2vh]" style="background-image:url('')"></div>
+      <div class="w-[170px] font-bold text-[clamp(11px,1vw,14px)] mb-[0.5vh] leading-snug">
+        КУЗНЕЦОВ <br> НИКИТА ЕВГЕНЬЕВИЧ
+      </div>
+      <div class="w-[170px] text-[clamp(10px,0.9vw,12px)] leading-snug text-white/90">
+        Педагог <br> Главный тренер <br> Лицензия C UEFA <br> Опыт с 2013 г
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center text-left">
+      <div class="w-[170px] h-[170px] bg-gray-400 bg-cover bg-center mb-[1.2vh]" style="background-image:url('')"></div>
+      <div class="w-[170px] font-bold text-[clamp(11px,1vw,14px)] mb-[0.5vh] leading-snug">
+        КУЗНЕЦОВ <br> НИКИТА ЕВГЕНЬЕВИЧ
+      </div>
+      <div class="w-[170px] text-[clamp(10px,0.9vw,12px)] leading-snug text-white/90">
+        Педагог <br> Главный тренер <br> Лицензия C UEFA <br> Опыт с 2013 г
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center text-left">
+      <div class="w-[170px] h-[170px] bg-gray-400 bg-cover bg-center mb-[1.2vh]" style="background-image:url('')"></div>
+      <div class="w-[170px] font-bold text-[clamp(11px,1vw,14px)] mb-[0.5vh] leading-snug">
+        КУЗНЕЦОВ <br> НИКИТА ЕВГЕНЬЕВИЧ
+      </div>
+      <div class="w-[170px] text-[clamp(10px,0.9vw,12px)] leading-snug text-white/90">
+        Педагог <br> Главный тренер <br> Лицензия C UEFA <br> Опыт с 2013 г
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center text-left">
+      <div class="w-[170px] h-[170px] bg-gray-400 bg-cover bg-center mb-[1.2vh]" style="background-image:url('')"></div>
+      <div class="w-[170px] font-bold text-[clamp(11px,1vw,14px)] mb-[0.5vh] leading-snug">
+        КУЗНЕЦОВ <br> НИКИТА ЕВГЕНЬЕВИЧ
+      </div>
+      <div class="w-[170px] text-[clamp(10px,0.9vw,12px)] leading-snug text-white/90">
+        Педагог <br> Главный тренер <br> Лицензия C UEFA <br> Опыт с 2013 г
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center text-left">
+      <div class="w-[170px] h-[170px] bg-gray-400 bg-cover bg-center mb-[1.2vh]" style="background-image:url('')"></div>
+      <div class="w-[170px] font-bold text-[clamp(11px,1vw,14px)] mb-[0.5vh] leading-snug">
+        КУЗНЕЦОВ <br> НИКИТА ЕВГЕНЬЕВИЧ
+      </div>
+      <div class="w-[170px] text-[clamp(10px,0.9vw,12px)] leading-snug text-white/90">
+        Педагог <br> Главный тренер <br> Лицензия C UEFA <br> Опыт с 2013 г
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+  <!-- 🟦 СЛАЙДЕР -->
+<section class="relative w-full h-[700px] overflow-hidden text-white font-[Manrope]">
+
+  <div id="mainSlider" class="flex transition-transform duration-700 ease-in-out h-full"></div>
+
+  <!-- Стрелки -->
+  <button id="prevSlide" class="absolute left-6 top-1/2 -translate-y-1/2 text-white text-4xl bg-black/40 hover:bg-black/60 p-3 rounded-full transition z-20">
+    &#10094;
+  </button>
+  <button id="nextSlide" class="absolute right-6 top-1/2 -translate-y-1/2 text-white text-4xl bg-black/40 hover:bg-black/60 p-3 rounded-full transition z-20">
+    &#10095;
+  </button>
+</section>
+
+<script>
+async function loadDynamicSlides() {
+  try {
+    const res = await fetch('sliders.json');
+    const slides = await res.json();
+    const container = document.getElementById('mainSlider');
+    container.innerHTML = '';
+
+    if (!slides.length) {
+      container.innerHTML = `
+        <div class="min-w-full flex items-center justify-center bg-gray-800 text-white text-2xl font-bold">
+          Нет добавленных слайдов
+        </div>`;
+      return;
+    }
+
+    slides.forEach(slide => {
+      const div = document.createElement('div');
+      div.className = 'min-w-full relative flex items-center justify-center bg-cover bg-center';
+      if (slide.img) div.style.backgroundImage = `url(${slide.img})`;
+      div.innerHTML = `
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="z-10 text-white max-w-3xl text-center px-10">
+          <h2 class="text-5xl font-extrabold mb-4">${slide.title}</h2>
+          <p class="text-lg leading-relaxed">${slide.desc || ''}</p>
+        </div>`;
+      container.appendChild(div);
+    });
+
+    initSlider(slides.length);
+  } catch (err) {
+    console.error('Ошибка загрузки слайдов:', err);
+  }
+}
+
+function initSlider(totalSlides) {
+  const slider = document.getElementById('mainSlider');
+  const nextBtn = document.getElementById('nextSlide');
+  const prevBtn = document.getElementById('prevSlide');
+  let index = 0;
+  let interval;
+
+  function goToSlide(i) {
+    index = (i + totalSlides) % totalSlides;
+    slider.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function startAuto() {
+    interval = setInterval(() => goToSlide(index + 1), 7000);
+  }
+
+  function resetAuto() {
+    clearInterval(interval);
+    startAuto();
+  }
+
+  nextBtn.onclick = () => { goToSlide(index + 1); resetAuto(); };
+  prevBtn.onclick = () => { goToSlide(index - 1); resetAuto(); };
+
+  startAuto();
+}
+
+loadDynamicSlides();
+</script>
+
+</section>
+
+<!-- 🧠 СКРИПТ -->
+<script>
+  const slider = document.getElementById('mainSlider');
+  const slides = slider.children;
+  const totalSlides = slides.length;
+  const nextBtn = document.getElementById('nextSlide');
+  const prevBtn = document.getElementById('prevSlide');
+  let currentIndex = 0;
+  let autoSlideInterval;
+
+  function goToSlide(index) {
+    if (index < 0) index = totalSlides - 1;
+    if (index >= totalSlides) index = 0;
+    slider.style.transform = `translateX(-${index * 100}%)`;
+    currentIndex = index;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    goToSlide(currentIndex + 1);
+    resetAutoSlide();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    goToSlide(currentIndex - 1);
+    resetAutoSlide();
+  });
+
+  function startAutoSlide() {
+    autoSlideInterval = setInterval(() => {
+      goToSlide(currentIndex + 1);
+    }, 7000); // каждые 7 секунд
+  }
+
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    startAutoSlide();
+  }
+
+  startAutoSlide();
+</script>
+
+
+
+
+    <section class="bg-gray-50 py-16">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-16 text-center">
+    
+
+    <div class="flex flex-col items-center">
+      <img src="./icon/Vector.svg" alt="Современная методика" class="w-[75px] h-[103px] mb-4">
+      <p class="text-lg font-medium leading-tight">
+        Современная<br>методика подготовки
+      </p>
+    </div>
+
+  
+    <div class="flex flex-col items-center">
+      <img src="./icon/time.svg" alt="Работаем с 2009 года" class="w-[75px] h-[75px] mb-4">
+      <p class="text-lg font-medium leading-tight">
+        Работаем с 2009 года
+      </p>
+    </div>
+
+   
+    <div class="flex flex-col items-center">
+      <img src="./icon/kr.svg" alt="Удобные локации" class="w-[75px] h-[75px] mb-4">
+      <p class="text-lg font-medium leading-tight">
+        Удобные локации
+      </p>
+    </div>
+
+   
+    <div class="flex flex-col items-center">
+      <img src="./icon/mzx.svg" alt="Современный инвентарь" class="w-[75px] h-[75px] mb-4">
+      <p class="text-lg font-medium leading-tight">
+        Современный<br>инвентарь
+      </p>
+    </div>
+
+
+    <div class="flex flex-col items-center">
+      <img src="./icon/command.svg" alt="Два тренера" class="w-[75px] h-[75px] mb-4">
+      <p class="text-lg font-medium leading-tight">
+        С каждой командой<br>работают два тренера
+      </p>
+    </div>
+
+   
+    <div class="flex flex-col items-center">
+      <img src="./icon/school.svg" alt="Школа вратарей" class="w-[75px] h-[75px] mb-4">
+      <p class="text-lg font-medium leading-tight">
+        Школа вратарей
+      </p>
+    </div>
+
+   
+    <div class="flex flex-col items-center">
+      <img src="./icon/learn.svg" alt="Учебно-тренировочные сборы" class="w-[75px] h-[75px] mb-4">
+      <p class="text-lg font-medium leading-tight">
+        Учебно-тренировочные<br>сборы
+      </p>
+    </div>
+
+    
+    <div class="flex flex-col items-center">
+      <img src="./icon/kybok.svg" alt="Участие в чемпионатах" class="w-[75px] h-[75px] mb-4">
+      <p class="text-lg font-medium leading-tight">
+        Регулярное участие в<br>чемпионатах и турнирах
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section class="relative bg-cover bg-center text-white py-20 px-6 lg:px-16"
+  style="background-image: url('./icon/IGR82710\ 1.svg');">
+
+  <!-- затемнение фона -->
+  <div class="absolute inset-0 bg-black/40"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
+    
+    <!-- Текстовая часть -->
+    <div>
+      <p class="text-xl font-light leading-relaxed mb-6">
+        За время обучения футболу игрок проходит через разные форматы игры.
+      </p>
+
+      <p class="text-xl font-light leading-relaxed mb-6">
+        Малыши начинают играть с двух игроков в поле, и чем старше становится ребёнок,
+        тем больше игроков одновременно допускается на поле во время игры.
+      </p>
+
+      <p class="text-xl font-light leading-relaxed">
+        В ФШ "Адмирал-ВМФ" юные футболисты проходят все этапы обучения, вплоть до
+        полноформатного футбола 11х11 в старших возрастах. Это позволяет гармонично
+        развиваться, и на финальном этапе обучения получить спортсмена, способного
+        выступать на высоком уровне.
+      </p>
+    </div>
+
+    <!-- Кнопка -->
+    <div class="flex mt-[330px] ml-[350px]">
+      <a href="#"
+   class="bg-blue-700 text-white text-lg font-medium py-3 px-[90px] rounded-full shadow-lg transition-all duration-300">
+  записаться
+</a>
+
+    </div>
+  </div>
+</section>
+
+
+
+<section class="relative w-full py-20 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto space-y-20">
+
+    <!-- Заголовок -->
+    <h2 class="text-center text-3xl md:text-4xl font-extrabold mb-12">У НАС</h2>
+
+    <!-- 1. ШКОЛА ВРАТАРЕЙ -->
+    <div class="flex flex-col md:flex-row items-center gap-10">
+      <img src="./icon/igr1.svg" alt="Школа вратарей"
+           class="w-full md:w-1/2 rounded-2xl shadow-xl object-cover">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl md:text-3xl font-extrabold mb-2">ШКОЛА ВРАТАРЕЙ</h3>
+        <p class="font-semibold mb-3 text-gray-800">Вратарь — особенный игрок в команде.</p>
+        <p class="text-gray-700 leading-relaxed">
+          Зачастую подготовке вратарей не удаётся уделить достаточно внимания в рамках тренировочного процесса,
+          поэтому для голкиперов “Адмирал-ВМФ” наши партнёры из Школы вратарского мастерства им. Льва Яшина
+          проводят специализированные тренировки, где ставят технику и развивают понимание игры.
+        </p>
+      </div>
+    </div>
+
+    <!-- 2. ЛЕТНИЕ СБОРЫ И ВЫЕЗДНЫЕ ТУРНИРЫ -->
+    <div class="flex flex-col md:flex-row-reverse items-center gap-10">
+      <img src="./icon/igr 2.svg" alt="Летние сборы и выездные турниры"
+           class="w-full md:w-1/2 rounded-2xl shadow-xl object-cover">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl md:text-3xl font-extrabold mb-2">РЕГУЛЯРНАЯ ИГРОВАЯ ПРАКТИКА И ВЫЕЗДНЫЕ ТУРНИРЫ</h3>
+        <p class="text-gray-700 leading-relaxed mb-3">
+          Неотъемлемой частью тренировок является получение опыта детьми в рамках соревнований.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          В нашей школе дети всех возрастов принимают участие в различных турнирах, где закрепляют и развивают
+          свои футбольные навыки.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          Для своих воспитанников мы проводим дополнительные тренировки по совершенствованию общей физической подготовки.
+          На таких занятиях под руководством специалистов игроки развивают силу, скорость и выносливость.
+        </p>
+      </div>
+    </div>
+  </section>
+
+ 
+
+<main class="hero-section-bg flex items-center justify-center py-16">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col lg:flex-row gap-10 items-center justify-center w-full">
+      
+      <div class="hidden lg:block flex-[1.5] self-stretch max-w-[700px] w-full bg-white shadow-lg"></div>
+      
+      <div class="flex-1 max-w-md w-full">
+        <div class="form-container">
+          <h2 class="text-center text-white text-2xl font-bold tracking-wide mb-6">
+            ПРИСОЕДИНЯЙСЯ К НАМ!
+          </h2>
+
+          <!-- СЕКЦИЯ ВЫБОРА ОТДЕЛЕНИЯ -->
+          <section class="mb-8">
+            <div class="w-full rounded-2xl p-6">
+              
+
+              <div class="relative">
+                <button id="selectorBtn"
+                  class="w-full flex justify-between items-center bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold text-lg shadow-md transition-all duration-300">
+                  <span>Выберите отделение</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                <div id="dropdownList"
+                 class="absolute z-10 left-0 right-0 mt-2 bg-gray-50 rounded-xl shadow-lg overflow-y-auto max-h-0 opacity-0 transition-all duration-300 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+
+                  <div class="department-item flex justify-between items-center px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Коломенская</span></div>
+                  <div class="department-item flex justify-between items-center px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Кленовый бульвар</span></div>
+                  <div class="department-item flex justify-between items-center px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Нагатинский затон</span></div>
+                  <div class="department-item flex justify-between items-center px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Кантемировская</span></div>
+                  <div class="department-item flex justify-between items-center px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Орехово</span></div>
+                  <div class="department-item flex justify-between items-center px-5 py-3 hover:bg-gray-200 cursor-pointer"><span>м. Царицыно</span></div>
+                </div>
+              </div>
+
+              <div id="selectedDepartment"
+                class="hidden mt-6 bg-green-50 border-l-4 border-green-600 p-4 rounded-lg animate-fadeIn">
+                <h4 class="text-green-700 font-semibold text-lg mb-1">Вы выбрали:</h4>
+                <p id="selectedName" class="text-green-800 text-base"></p>
+              </div>
+            </div>
+          </section>
+          <!-- /СЕКЦИЯ -->
+
+         <form id="bottomForm" novalidate>
+          <input type="hidden" name="department" id="departmentBottom">
+  
+
+  <div class="mb-5">
+    <input type="text" name="parent_name" id="parentNameBottom" placeholder="ФИО родителя" required
+      class="w-full px-5 py-4 text-base border border-gray-300 rounded-full outline-none focus:border-blue-500 transition-colors duration-300">
+  </div>
+  <div class="mb-5">
+    <input type="tel" name="phone" id="phoneBottom" placeholder="+7 (909) 999 76 89" maxlength="18" required
+      class="w-full px-5 py-4 text-base border border-gray-300 rounded-full outline-none focus:border-blue-500 transition-colors duration-300">
+  </div>
+  <div class="mb-5">
+    <input type="text" name="child_name" id="childNameBottom" placeholder="ФИО ребёнка" required
+      class="w-full px-5 py-4 text-base border border-gray-300 rounded-full outline-none focus:border-blue-500 transition-colors duration-300">
+  </div>
+  <div class="mb-5">
+    <input type="text" name="birth_date" id="birthDateBottom" maxlength="10" placeholder="12.10.2007" required
+      class="w-full px-5 py-4 text-base border border-gray-300 rounded-full outline-none focus:border-blue-500 transition-colors duration-300">
+  </div>
+
+  <div class="mb-5 flex items-center justify-center gap-2">
+    <input type="checkbox" id="privacyPolicyBottom" class="cursor-pointer">
+    <label for="privacyPolicyBottom" class="text-white text-sm cursor-pointer">
+      Я согласен с <a href="privacy.html" target="_blank" class="underline hover:no-underline">политикой конфиденциальности</a>
+    </label>
+  </div>
+
+  <div class="flex items-center justify-center gap-4 mt-6">
+    <button type="submit" id="submitBtn"
+      class="w-full bg-gray-400 text-white font-bold py-4 px-6 rounded-full cursor-not-allowed opacity-70 transition-colors duration-300">
+      ЗАПИСАТЬСЯ
+    </button>
+    <a href="tel:+79265975757"
+      class="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-green-500 rounded-full hover:bg-green-600 transition-colors duration-300">
+      <img src="./icon/call.svg" alt="Звонок" class="w-[70%]">
+    </a>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+  #dropdownList::-webkit-scrollbar {
+    width: 6px;
+  }
+  #dropdownList::-webkit-scrollbar-thumb {
+    background-color: #9ca3af; /* серый */
+    border-radius: 4px;
+  }
+  #dropdownList::-webkit-scrollbar-track {
+    background-color: #f3f4f6;
+  }
+</style>
+
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.4s ease-in-out; }
+  </style>
+</main>
+
+<footer class="bg-white text-black py-8 text-sm mt-10">
+  <div class="container mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-5 text-center lg:text-left">
+    <div class="min-w-[280px]">
+      <p class="font-semibold">Футбольная школа для детей</p>
+      <p class="leading-relaxed">м. Коломенская,<br>м. Кленовый бульвар,<br>м. Нагатинский затон,<br>м. Царицино,<br>м. Кантемировская,<br>м. Орехово</p>
+    </div>
+
+    <div class="my-4 lg:my-0">
+      <img src="./icon/ВК лого Адмирал ПНГ на награды 1.svg" alt="Логотип ФК Адмирал" class="w-24 h-auto">
+    </div>
+
+    <div class="min-w-[280px] flex flex-col lg:flex-row items-center justify-center lg:justify-end gap-5">
+      <div class="flex items-center gap-3">
+        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-8 h-8 hover:opacity-80 transition-opacity duration-300"></a>
+        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="w-8 h-8 hover:opacity-80 transition-opacity duration-300"></a>
+        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK.com-logo.svg" alt="VK" class="w-8 h-8 hover:opacity-80 transition-opacity duration-300"></a>
+      </div>
+      <div class="text-lg lg:text-right">
+        <p>8 (926) 597 57 57</p>
+        <p>fc-admiral@mail.ru</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const selectorBtn = document.getElementById("selectorBtn");
+  const dropdownList = document.getElementById("dropdownList");
+  const icon = selectorBtn.querySelector("svg");
+  const departmentItems = document.querySelectorAll(".department-item");
+  const selectedDepartment = document.getElementById("selectedDepartment");
+  const selectedName = document.getElementById("selectedName");
+  const departmentInput = document.getElementById("departmentBottom"); // скрытое поле
+
+
+  selectorBtn.addEventListener("click", () => {
+    const isOpen = dropdownList.classList.contains("max-h-64");
+    dropdownList.classList.toggle("max-h-64", !isOpen);
+    dropdownList.classList.toggle("opacity-100", !isOpen);
+    dropdownList.classList.toggle("opacity-0", isOpen);
+    dropdownList.classList.toggle("max-h-0", isOpen);
+    icon.classList.toggle("rotate-180", !isOpen);
+  });
+
+  departmentItems.forEach(item => {
+    item.addEventListener("click", () => {
+      departmentItems.forEach(i => {
+        const arrow = i.querySelector("svg.arrow");
+        if (arrow) arrow.remove();
+        i.classList.remove("bg-blue-50", "text-blue-700", "font-semibold");
+      });
+
+      const name = item.querySelector("span").textContent.trim();
+      selectorBtn.querySelector("span").textContent = name;
+      selectedName.textContent = name;
+      selectedDepartment.classList.remove("hidden");
+
+      const arrowSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      arrowSvg.setAttribute("viewBox", "0 0 24 24");
+      arrowSvg.setAttribute("fill", "none");
+      arrowSvg.setAttribute("stroke", "currentColor");
+      arrowSvg.classList.add("w-4", "h-4", "text-blue-600", "arrow");
+      arrowSvg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />';
+      item.appendChild(arrowSvg);
+      item.classList.add("bg-blue-50", "text-blue-700", "font-semibold");
+
+      dropdownList.classList.remove("max-h-64", "opacity-100");
+      dropdownList.classList.add("max-h-0", "opacity-0");
+      icon.classList.remove("rotate-180");
+    });
+  });
+
+  document.addEventListener("click", e => {
+    if (!selectorBtn.contains(e.target) && !dropdownList.contains(e.target)) {
+      dropdownList.classList.remove("max-h-64", "opacity-100");
+      dropdownList.classList.add("max-h-0", "opacity-0");
+      icon.classList.remove("rotate-180");
+    }
+  });
+
+  departmentItems.forEach(item => {
+  item.addEventListener("click", () => {
+    departmentItems.forEach(i => {
+      const arrow = i.querySelector("svg.arrow");
+      if (arrow) arrow.remove();
+      i.classList.remove("bg-blue-50", "text-blue-700", "font-semibold");
+    });
+
+    const name = item.querySelector("span").textContent.trim();
+    selectorBtn.querySelector("span").textContent = name;
+    selectedName.textContent = name;
+    departmentInput.value = name; // ✅ передаём в скрытое поле
+    selectedDepartment.classList.remove("hidden");
+
+    const arrowSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    arrowSvg.setAttribute("viewBox", "0 0 24 24");
+    arrowSvg.setAttribute("fill", "none");
+    arrowSvg.setAttribute("stroke", "currentColor");
+    arrowSvg.classList.add("w-4", "h-4", "text-blue-600", "arrow");
+    arrowSvg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />';
+    item.appendChild(arrowSvg);
+    item.classList.add("bg-blue-50", "text-blue-700", "font-semibold");
+
+    dropdownList.classList.remove("max-h-64", "opacity-100");
+    dropdownList.classList.add("max-h-0", "opacity-0");
+    icon.classList.remove("rotate-180");
+  });
+});
+
+</script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const navItems = document.querySelectorAll("nav ul li");
+  const navHome = navItems[0];
+  const navClubs = document.getElementById("nav-clubs");
+  const navCoaches = navItems[2];
+  const navPeople = navItems[3];
+
+  const philosophy = document.getElementById("philosophy-section");
+  const clubs = document.getElementById("clubs-section");
+  const coaches = document.getElementById("coaches-section");
+  const people = document.getElementById("people-sections");
+
+  // 👉 сброс активных ссылок
+  function resetActive() {
+    navItems.forEach(item => {
+      item.classList.remove("text-blue-600", "font-bold");
+      item.classList.add("text-gray-900");
+    });
+  }
+
+  // 👉 установка активной ссылки
+  function setActive(el) {
+    resetActive();
+    el.classList.add("text-blue-600", "font-bold");
+    el.classList.remove("text-gray-900");
+  }
+
+function showSection(sectionToShow) {
+  const sections = [philosophy, clubs, coaches, people];
+
+  // Скрываем все секции плавно
+  sections.forEach(sec => {
+    sec.classList.remove("active");
+  });
+
+  // После завершения анимации скрываем невидимые секции
+  setTimeout(() => {
+    sections.forEach(sec => {
+      if (sec !== sectionToShow) sec.style.display = "none";
+    });
+  }, 600);
+
+  // Показываем новую секцию и плавно активируем
+  sectionToShow.style.display = "block";
+  setTimeout(() => {
+    sectionToShow.classList.add("active");
+  }, 10);
+}
+
+
+
+  // 🎯 клики
+  if (navHome) {
+    navHome.addEventListener("click", (e) => {
+      e.preventDefault(); // чтобы не прыгало
+      showSection(philosophy);
+      setActive(navHome);
+    });
+  }
+
+  if (navClubs) {
+    navClubs.addEventListener("click", (e) => {
+      e.preventDefault();
+      showSection(clubs);
+      setActive(navClubs);
+    });
+  }
+
+  if (navCoaches) {
+    navCoaches.addEventListener("click", (e) => {
+      e.preventDefault();
+      showSection(coaches);
+      setActive(navCoaches);
+    });
+  }
+
+  if (navPeople) {
+    navPeople.addEventListener("click", (e) => {
+      e.preventDefault();
+      showSection(people);
+      setActive(navPeople);
+    });
+  }
+
+  // 🟦 активная по умолчанию
+  setActive(navHome);
+});
+</script>
+
+
+<!-- ✅ МОДАЛЬНОЕ ОКНО -->
+<div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[99999]">
+  <div class="relative w-[90%] max-w-md rounded-3xl overflow-hidden shadow-2xl">
+    <div class="absolute inset-0 bg-[url('./icon/регистир.svg')] bg-cover bg-center brightness-50 z-0"></div>
+
+    <div class="relative z-10 p-8 text-white">
+      <button id="closeModal" class="absolute top-3 right-3 text-3xl text-white hover:text-gray-200">&times;</button>
+      <h2 class="text-2xl font-bold text-center mb-6 drop-shadow-lg">ПРИСОЕДИНЯЙСЯ К НАМ!</h2>
+
+      <!-- 🟦 Выбор отделения в модалке -->
+
+
+
+      <form id="modalForm" novalidate class="space-y-4">
+        <div class="relative mb-4">
+  <button type="button" id="modalSelectorBtn"
+    class="w-full flex justify-between items-center bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold text-lg shadow-md transition-all duration-300">
+    <span>Выберите отделение</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300"
+      fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <div id="modalDropdownList"
+   class="absolute z-20 left-0 right-0 mt-2 bg-gray-50 rounded-xl shadow-lg overflow-y-auto max-h-0 opacity-0 transition-all duration-300 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+    <div class="text-black modal-department-item px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Коломенская</span></div>
+    <div class="text-black modal-department-item px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Кленовый бульвар</span></div>
+    <div class="text-black modal-department-item px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Нагатинский затон</span></div>
+    <div class="text-black modal-department-item px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Кантемировская</span></div>
+    <div class="text-black modal-department-item px-5 py-3 border-b border-gray-200 hover:bg-gray-200 cursor-pointer"><span>м. Орехово</span></div>
+    <div class="text-black modal-department-item px-5 py-3 hover:bg-gray-200 cursor-pointer"><span>м. Царицыно</span></div>
+  </div>
+</div>
+        <input type="hidden" id="modalDepartment" name="department">
+        <input name="parent_name" type="text" placeholder="ФИО родителя" required
+               class="w-full rounded-full px-4 py-3 text-gray-900 bg-white/90 border border-gray-300 focus:ring-2 focus:ring-blue-500">
+        <input name="phone" type="tel" placeholder="+7 (909) 999 76 89" required
+               class="w-full rounded-full px-4 py-3 text-gray-900 bg-white/90 border border-gray-300 focus:ring-2 focus:ring-blue-500">
+        <input name="child_name" type="text" placeholder="ФИО ребёнка" required
+               class="w-full rounded-full px-4 py-3 text-gray-900 bg-white/90 border border-gray-300 focus:ring-2 focus:ring-blue-500">
+        <input name="birth_date" type="text" placeholder="12.10.2007" required
+               class="w-full rounded-full px-4 py-3 text-gray-900 bg-white/90 border border-gray-300 focus:ring-2 focus:ring-blue-500">
+        <button type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full w-full transition">
+          ЗАПИСАТЬСЯ
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modal");
+  const openBtns = document.querySelectorAll(".adaptive-button, a[href='#']"); // кнопки "записаться"
+  const closeBtn = document.getElementById("closeModal");
+  const form = document.getElementById("modalForm");
+  const phoneInput = form.querySelector("input[name='phone']");
+  const birthInput = form.querySelector("input[name='birth_date']");
+
+  // === Открытие и закрытие модалки ===
+  openBtns.forEach(btn => btn.addEventListener("click", e => {
+    e.preventDefault();
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }));
+  closeBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  });
+  modal.addEventListener("click", e => {
+    if (e.target === modal) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+  });
+
+  // === Маска телефона ===
+  phoneInput.addEventListener("beforeinput", e => {
+    if (e.data && /[^0-9]/.test(e.data)) e.preventDefault();
+  });
+
+  phoneInput.addEventListener("input", e => {
+    let digits = e.target.value.replace(/\D/g, "");
+    if (digits === "") {
+      e.target.value = "";
+      return;
+    }
+    if (digits[0] === "8") digits = "7" + digits.slice(1);
+    if (digits[0] !== "7") digits = "7" + digits;
+    if (digits.length > 11) digits = digits.slice(0, 11);
+
+    let f = "+7";
+    if (digits.length > 1) f += " (" + digits.slice(1, 4);
+    if (digits.length >= 4) f += ")";
+    if (digits.length >= 5) f += " " + digits.slice(4, 7);
+    if (digits.length >= 7) f += " " + digits.slice(7, 9);
+    if (digits.length >= 9) f += " " + digits.slice(9, 11);
+    e.target.value = f;
+  });
+
+  // === Формат даты рождения ===
+  birthInput.addEventListener("beforeinput", e => {
+    if (e.data && /[^0-9]/.test(e.data)) e.preventDefault();
+  });
+
+  birthInput.addEventListener("input", e => {
+    let raw = e.target.value.replace(/\D/g, "").slice(0, 8);
+    if (raw === "") {
+      e.target.value = "";
+      return;
+    }
+
+    let day = raw.slice(0, 2);
+    let month = raw.slice(2, 4);
+    let year = raw.slice(4, 8);
+
+    if (day && day.length === 2) {
+      let d = +day;
+      if (d < 1) day = "01";
+      if (d > 31) day = "31";
+    }
+
+    if (month && month.length === 2) {
+      let m = +month;
+      if (m < 1) month = "01";
+      if (m > 12) month = "12";
+    }
+
+    if (year && year.length === 4) {
+      const current = new Date().getFullYear();
+      let y = +year;
+      if (y < 1940) year = "1940";
+      if (y > current) year = String(current);
+    }
+
+    let formatted = "";
+    if (day) formatted += day;
+    if (month) formatted += "." + month;
+    if (year) formatted += "." + year;
+    e.target.value = formatted;
+  });
+
+  // === Отправка формы ===
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const parent = form.querySelector("input[name='parent_name']").value.trim();
+    const phone = phoneInput.value.trim();
+    const child = form.querySelector("input[name='child_name']").value.trim();
+    const birth = birthInput.value.trim();
+
+    if (!parent || !phone || !child || !birth) {
+      alert("⚠ Заполните все поля формы.");
+      return;
+    }
+
+    const data = new FormData(form);
+    for (const [k, v] of data.entries()) console.log(k, "=>", v);
+
+
+    
+    fetch("insert.php", { method: "POST", body: data })
+      .then(r => r.text())
+      .then(t => {
+        alert(t);
+        if (t.includes("✅")) {
+  form.reset();
+
+  // 🟦 сброс выбранного отделения
+  const modalSelectorBtn = document.getElementById("modalSelectorBtn");
+  const modalDepartmentInput = document.getElementById("modalDepartment");
+  const selectedDiv = document.getElementById("modalSelectedDepartment");
+
+  modalSelectorBtn.querySelector("span").textContent = "Выберите отделение";
+  modalDepartmentInput.value = "";
+  
+  // 🟨 удалить надпись "Вы выбрали: ..."
+  if (selectedDiv) selectedDiv.remove();
+
+  // 🟩 закрываем модалку
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}
+
+
+      })
+      .catch(err => alert("Ошибка: " + err.message));
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const checkbox = document.getElementById("privacyPolicyBottom");
+  const submitBtn = document.getElementById("submitBtn");
+  const form = document.getElementById("bottomForm");
+
+  function updateButton() {
+    if (checkbox.checked) {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed", "opacity-70");
+      submitBtn.classList.add("bg-blue-600", "hover:bg-blue-700", "cursor-pointer");
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.classList.remove("bg-blue-600", "hover:bg-blue-700", "cursor-pointer");
+      submitBtn.classList.add("bg-gray-400", "cursor-not-allowed", "opacity-70");
+    }
+  }
+
+  checkbox.addEventListener("change", updateButton);
+  updateButton();
+
+  form.addEventListener("submit", e => {
+    if (submitBtn.disabled) {
+      e.preventDefault();
+      alert("Для продолжения отметьте согласие с политикой конфиденциальности.");
+    }
+  });
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("bottomForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const checkbox = document.getElementById("privacyPolicyBottom");
+  const phoneInput = document.getElementById("phoneBottom");
+  const birthInput = document.getElementById("birthDateBottom");
+
+  // --- Активировать кнопку при согласии ---
+  checkbox.addEventListener("change", () => {
+    const active = checkbox.checked;
+    submitBtn.disabled = !active;
+    submitBtn.classList.toggle("bg-blue-600", active);
+    submitBtn.classList.toggle("hover:bg-blue-700", active);
+    submitBtn.classList.toggle("cursor-pointer", active);
+    submitBtn.classList.toggle("bg-gray-400", !active);
+    submitBtn.classList.toggle("cursor-not-allowed", !active);
+  });
+
+  // --- Маска телефона (как в модалке) ---
+  phoneInput.addEventListener("beforeinput", e => {
+    if (e.data && /[^0-9]/.test(e.data)) e.preventDefault();
+  });
+
+  phoneInput.addEventListener("input", e => {
+    let digits = e.target.value.replace(/\D/g, "");
+    if (digits === "") {
+      e.target.value = "";
+      return;
+    }
+    if (digits[0] === "8") digits = "7" + digits.slice(1);
+    if (digits[0] !== "7") digits = "7" + digits;
+    if (digits.length > 11) digits = digits.slice(0, 11);
+
+    let f = "+7";
+    if (digits.length > 1) f += " (" + digits.slice(1, 4);
+    if (digits.length >= 4) f += ")";
+    if (digits.length >= 5) f += " " + digits.slice(4, 7);
+    if (digits.length >= 7) f += " " + digits.slice(7, 9);
+    if (digits.length >= 9) f += " " + digits.slice(9, 11);
+    e.target.value = f;
+  });
+
+  // --- Формат даты (точно как в модалке) ---
+  birthInput.addEventListener("beforeinput", e => {
+    if (e.data && /[^0-9]/.test(e.data)) e.preventDefault();
+  });
+
+  birthInput.addEventListener("input", e => {
+    let raw = e.target.value.replace(/\D/g, "").slice(0, 8);
+    if (raw === "") {
+      e.target.value = "";
+      return;
+    }
+
+    let day = raw.slice(0, 2);
+    let month = raw.slice(2, 4);
+    let year = raw.slice(4, 8);
+
+    if (day && day.length === 2) {
+      let d = +day;
+      if (d < 1) day = "01";
+      if (d > 31) day = "31";
+    }
+
+    if (month && month.length === 2) {
+      let m = +month;
+      if (m < 1) month = "01";
+      if (m > 12) month = "12";
+    }
+
+    if (year && year.length === 4) {
+      const current = new Date().getFullYear();
+      let y = +year;
+      if (y < 1940) year = "1940";
+      if (y > current) year = String(current);
+    }
+
+    let formatted = "";
+    if (day) formatted += day;
+    if (month) formatted += "." + month;
+    if (year) formatted += "." + year;
+    e.target.value = formatted;
+  });
+
+  // --- Отправка формы ---
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (submitBtn.disabled) {
+      alert("Отметьте согласие с политикой конфиденциальности.");
+      return;
+    }
+
+    const data = new FormData(form);
+    fetch("insert.php", { method: "POST", body: data })
+      .then(r => r.text())
+      .then(t => {
+        alert(t);
+        if (t.includes("✅")) form.reset();
+      })
+      .catch(err => alert("Ошибка: " + err.message));
+  });
+});
+</script>
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const modalSelectorBtn = document.getElementById("modalSelectorBtn");
+  const modalDropdown = document.getElementById("modalDropdownList");
+  const modalIcon = modalSelectorBtn.querySelector("svg");
+  const modalItems = document.querySelectorAll(".modal-department-item");
+  const modalDepartmentInput = document.getElementById("modalDepartment");
+
+  // --- открыть/закрыть список ---
+  modalSelectorBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = modalDropdown.classList.contains("max-h-64");
+    modalDropdown.classList.toggle("max-h-64", !isOpen);
+    modalDropdown.classList.toggle("opacity-100", !isOpen);
+    modalDropdown.classList.toggle("opacity-0", isOpen);
+    modalDropdown.classList.toggle("max-h-0", isOpen);
+    modalIcon.classList.toggle("rotate-180", !isOpen);
+  });
+
+  // --- выбор пункта ---
+  modalItems.forEach(item => {
+  item.addEventListener("click", e => {
+    e.stopPropagation(); // 🔹 предотвращает повторное открытие списка
+
+    const name = item.querySelector("span").textContent.trim();
+    modalSelectorBtn.querySelector("span").textContent = name;
+    modalDepartmentInput.value = name;
+
+     let existing = document.getElementById("modalSelectedDepartment");
+if (!existing) {
+  existing = document.createElement("div");
+  existing.id = "modalSelectedDepartment";
+  existing.className = "mt-4 bg-green-50 border-l-4 border-green-600 p-3 rounded-lg text-green-800";
+  modalSelectorBtn.parentElement.after(existing);
+}
+existing.textContent = "Вы выбрали: " + name;
+
+
+    // визуальное выделение
+    modalItems.forEach(i => i.classList.remove("bg-blue-50", "text-blue-700", "font-semibold"));
+    item.classList.add("bg-blue-50", "text-blue-700", "font-semibold");
+
+    // закрыть выпадающий список
+    modalDropdown.classList.remove("max-h-64", "opacity-100");
+    modalDropdown.classList.add("max-h-0", "opacity-0");
+    modalIcon.classList.remove("rotate-180");
+  });
+});
+
+
+  // --- клик вне списка закрывает его ---
+  document.addEventListener("click", e => {
+    if (!modalSelectorBtn.contains(e.target) && !modalDropdown.contains(e.target)) {
+      modalDropdown.classList.remove("max-h-64", "opacity-100");
+      modalDropdown.classList.add("max-h-0", "opacity-0");
+      modalIcon.classList.remove("rotate-180");
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+</body>
+</html>

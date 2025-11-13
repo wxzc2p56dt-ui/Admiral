@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админ Панель</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body class="bg-gray-100 font-[Manrope]">
+
+  <!-- 🔹 Основная структура -->
+  <div class="flex min-h-screen">
+
+    <!-- 🟦 Боковое меню -->
+    <aside class="w-64 bg-black text-white flex flex-col py-6 px-4 space-y-4 shadow-lg">
+      <h1 class="text-2xl font-bold mb-6 pl-2">Админ Панель</h1>
+
+      <button class="tab-btn active w-full text-left px-4 py-2 bg-white hover:bg-white text-blue-700 hover:text-blue-700 rounded-lg font-medium" data-tab="sliders">Слайдеры</button>
+      <button class="tab-btn w-full text-left px-4 py-2 hover:bg-white hover:text-blue-700 rounded-lg font-medium" data-tab="news">Новости</button>
+      <button class="tab-btn w-full text-left px-4 py-2 hover:bg-white hover:text-blue-700 rounded-lg font-medium" data-tab="database">База данных</button>
+
+      <div class="flex-grow"></div>
+      <button class="mt-auto bg-blue-900 hover:bg-blue-800 px-4 py-2 rounded-lg text-sm text-gray-200">
+        Выйти
+      </button>
+    </aside>
+
+    <!-- 🟩 Контент -->
+    <main class="flex-1 p-8 overflow-y-auto">
+
+      <!-- 📸 СЛАЙДЕРЫ -->
+      <section id="sliders" class="tab-content">
+        <h2 class="text-3xl font-bold mb-4">Управление слайдами</h2>
+
+        <form id="sliderForm" class="bg-white p-6 rounded-2xl shadow space-y-4 mb-8">
+          <div>
+            <label class="block text-sm font-medium mb-1">Заголовок</label>
+            <input type="text" id="sliderTitle" class="w-full border rounded-lg px-3 py-2" placeholder="Введите заголовок" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Описание</label>
+            <textarea id="sliderDesc" class="w-full border rounded-lg px-3 py-2" placeholder="Описание..."></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Изображение</label>
+            <input type="file" id="sliderImage" accept="image/*" class="w-full border rounded-lg px-3 py-2 bg-gray-50" />
+          </div>
+          <button type="button" id="addSlider" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+            Добавить слайд
+          </button>
+        </form>
+
+        <h3 class="text-lg font-semibold mb-3">📋 Текущие слайды</h3>
+        <div id="sliderList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
+
+      <!-- 📰 НОВОСТИ -->
+      <section id="news" class="tab-content hidden">
+        <h2 class="text-3xl font-bold mb-4">Управление новостями</h2>
+
+        <form id="newsForm" class="bg-white p-6 rounded-2xl shadow space-y-4 mb-8">
+          <div>
+            <label class="block text-sm font-medium mb-1">Заголовок новости</label>
+            <input type="text" id="newsTitle" class="w-full border rounded-lg px-3 py-2" placeholder="Введите заголовок" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Текст новости</label>
+            <textarea id="newsContent" class="w-full border rounded-lg px-3 py-2" placeholder="Введите текст новости..."></textarea>
+          </div>
+           <div>
+            <label class="block text-sm font-medium mb-1">Изображение</label>
+            <input type="file" id="sliderImage" accept="image/*" class="w-full border rounded-lg px-3 py-2 bg-gray-50" />
+          </div>
+          <button type="button" id="addNews" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+            Опубликовать
+          </button>
+        </form>
+
+        <h3 class="text-lg font-semibold mb-3">Опубликованные новости</h3>
+        <div id="newsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
+
+      <!-- 💾 БАЗА ДАННЫХ -->
+      <section id="database" class="tab-content hidden relative">
+
+        <h2 class="text-3xl font-bold mb-4">База данных</h2>
+
+        <table id="dataTable" class="w-full border-collapse bg-white shadow rounded-lg overflow-hidden">
+  <thead class="bg-black text-white">
+    <tr>
+      <th class="p-3 text-left">ID</th>
+      <th class="p-3 text-left cursor-pointer select-none group" id="departmentHeader">
+        <div class="flex items-center gap-2">
+          <span>Отдел</span>
+          <svg id="deptArrow" class="w-4 h-4 transition-transform duration-300 group-hover:text-yellow-300"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </div>
+<div id="metroList" 
+     class="hidden absolute bg-white shadow-lg rounded-lg p-4 mt-1 w-64 border border-gray-200 overflow-y-auto max-h-64 z-50">
+  <p class="font-semibold mb-2">Сортировать по:</p>
+  <ul class="space-y-2">
+    <li class="text-black font-semibold cursor-pointer hover:text-blue-600" data-filter="all">Показать все</li>
+    <li class="text-black cursor-pointer hover:text-blue-600" data-filter="Коломенская">м. Коломенская</li>
+    <li class="text-black cursor-pointer hover:text-blue-600" data-filter="Кленовый бульвар">м. Кленовый бульвар</li>
+    <li class="text-black cursor-pointer hover:text-blue-600" data-filter="Нагатинский затон">м. Нагатинский затон</li>
+    <li class="text-black cursor-pointer hover:text-blue-600" data-filter="Кантемировская">м. Кантемировская</li>
+    <li class="text-black cursor-pointer hover:text-blue-600" data-filter="Орехово">м. Орехово</li>
+    <li class="text-black cursor-pointer hover:text-blue-600" data-filter="Царицыно">м. Царицыно</li>
+  </ul>
+</div>
+      </th>
+      <th class="p-3 text-left">ФИО Родителя</th>
+      <th class="p-3 text-left">Телефон</th>
+      <th class="p-3 text-left">ФИО Ребенка</th>
+      <th class="p-3 text-left">Дата</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+        <div class="mt-6">
+          <button id="exportExcel" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+            Экспортировать в Excel
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ⚙️ JS -->
+<script>
+// === Переключение вкладок ===
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabs = document.querySelectorAll('.tab-content');
+tabButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabButtons.forEach(b => b.classList.remove('active', 'bg-white', 'text-blue-700'));
+    btn.classList.add('active', 'bg-white', 'text-blue-700');
+    const tabId = btn.dataset.tab;
+    tabs.forEach(t => t.classList.add('hidden'));
+    document.getElementById(tabId).classList.remove('hidden');
+  });
+});
+
+
+// === СЛАЙДЕРЫ ===
+const sliderList = document.getElementById('sliderList');
+const sliderData = [];
+
+async function saveSliders() {
+  await fetch('save_sliders.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(sliderData)
+  });
+}
+
+async function loadSliders() {
+  try {
+    const res = await fetch('sliders.json');
+    if (!res.ok) return;
+    const data = await res.json();
+    sliderData.length = 0;
+    sliderData.push(...data);
+    renderSliders();
+  } catch (e) {
+    console.warn('Нет sliders.json, создастся при первом сохранении');
+  }
+}
+
+document.getElementById('addSlider').addEventListener('click', () => {
+  const title = document.getElementById('sliderTitle').value.trim();
+  const desc = document.getElementById('sliderDesc').value.trim();
+  const file = document.getElementById('sliderImage').files[0];
+  if (!title) return alert('Введите заголовок!');
+
+  const slide = { id: Date.now(), title, desc, img: '', editing: false };
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = async () => {
+      slide.img = reader.result;
+      sliderData.push(slide);
+      await renderSliders();
+      clearSliderForm();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    sliderData.push(slide);
+    renderSliders();
+    clearSliderForm();
+  }
+});
+
+function clearSliderForm() {
+  document.getElementById('sliderTitle').value = '';
+  document.getElementById('sliderDesc').value = '';
+  document.getElementById('sliderImage').value = '';
+}
+
+async function renderSliders() {
+  sliderList.innerHTML = '';
+  sliderData.forEach(slide => {
+    const card = document.createElement('div');
+    card.className = 'bg-white rounded-2xl shadow overflow-hidden';
+    const imageBlock = slide.img ? `<img src="${slide.img}" class="w-full h-48 object-cover">` : '';
+    const content = slide.editing
+      ? `
+        ${imageBlock}
+        <div class="p-4 space-y-2">
+          <input type="text" class="titleInput w-full border rounded px-2 py-1 font-bold" value="${slide.title}">
+          <textarea class="descInput w-full border rounded px-2 py-1 text-sm text-gray-600">${slide.desc || ''}</textarea>
+          <div class="flex justify-between mt-2">
+            <button class="saveBtn bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">Сохранить</button>
+            <button class="deleteBtn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">Удалить</button>
+          </div>
+        </div>`
+      : `
+        ${imageBlock}
+        <div class="p-4 space-y-2">
+          <h4 class="font-bold text-lg">${slide.title}</h4>
+          <p class="text-sm text-gray-600">${slide.desc || ''}</p>
+          <div class="flex justify-between mt-2">
+            <button class="editBtn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">Редактировать</button>
+            <button class="deleteBtn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">Удалить</button>
+          </div>
+        </div>`;
+    card.innerHTML = content;
+
+    card.querySelector('.editBtn')?.addEventListener('click', () => {
+      slide.editing = true;
+      renderSliders();
+    });
+
+    card.querySelector('.saveBtn')?.addEventListener('click', async () => {
+      slide.title = card.querySelector('.titleInput').value.trim();
+      slide.desc = card.querySelector('.descInput').value.trim();
+      slide.editing = false;
+      await renderSliders();
+    });
+
+    card.querySelector('.deleteBtn')?.addEventListener('click', async () => {
+      const i = sliderData.findIndex(s => s.id === slide.id);
+      if (i !== -1) sliderData.splice(i, 1);
+      await renderSliders();
+    });
+
+    sliderList.appendChild(card);
+  });
+  await saveSliders();
+}
+
+loadSliders();
+
+
+// === НОВОСТИ ===
+const newsList = document.getElementById('newsList');
+const newsData = [];
+
+document.getElementById('addNews').addEventListener('click', () => {
+  const title = document.getElementById('newsTitle').value.trim();
+  const text = document.getElementById('newsContent').value.trim();
+  if (!title || !text) return alert('Введите заголовок и текст!');
+  const news = { id: Date.now(), title, text, date: new Date().toLocaleString(), editing: false };
+  newsData.push(news);
+  renderNews();
+  document.getElementById('newsTitle').value = '';
+  document.getElementById('newsContent').value = '';
+});
+
+function renderNews() {
+  newsList.innerHTML = '';
+  newsData.forEach(n => {
+    const card = document.createElement('div');
+    card.className = 'bg-white rounded-2xl shadow overflow-hidden';
+    const content = n.editing
+      ? `
+        <div class="p-4 space-y-2">
+          <input type="text" class="titleInput w-full border rounded px-2 py-1 font-bold" value="${n.title}">
+          <textarea class="descInput w-full border rounded px-2 py-1 text-sm text-gray-700">${n.text}</textarea>
+          <p class="text-gray-500 text-sm">${n.date}</p>
+          <div class="flex justify-between mt-2">
+            <button class="saveBtn bg-green-600 text-white px-3 py-1 rounded text-sm">Сохранить</button>
+            <button class="deleteBtn bg-red-600 text-white px-3 py-1 rounded text-sm">Удалить</button>
+          </div>
+        </div>`
+      : `
+        <div class="p-4 space-y-2">
+          <h4 class="font-bold text-lg">${n.title}</h4>
+          <p class="text-gray-700 text-sm">${n.text}</p>
+          <p class="text-gray-500 text-sm">${n.date}</p>
+          <div class="flex justify-between mt-2">
+            <button class="editBtn bg-blue-600 text-white px-3 py-1 rounded text-sm">Редактировать</button>
+            <button class="deleteBtn bg-red-600 text-white px-3 py-1 rounded text-sm">Удалить</button>
+          </div>
+        </div>`;
+    card.innerHTML = content;
+
+    card.querySelector('.editBtn')?.addEventListener('click', () => {
+      n.editing = true;
+      renderNews();
+    });
+
+    card.querySelector('.saveBtn')?.addEventListener('click', () => {
+      n.title = card.querySelector('.titleInput').value.trim();
+      n.text = card.querySelector('.descInput').value.trim();
+      n.editing = false;
+      renderNews();
+    });
+
+    card.querySelector('.deleteBtn')?.addEventListener('click', () => {
+      const i = newsData.findIndex(x => x.id === n.id);
+      if (i !== -1) newsData.splice(i, 1);
+      renderNews();
+    });
+
+    newsList.appendChild(card);
+  });
+}
+
+
+// === БАЗА ДАННЫХ ===
+const dataTableBody = document.querySelector('#dataTable tbody');
+
+async function loadDatabase() {
+  try {
+    const res = await fetch('get_data.php');
+    const rows = await res.json();
+    if (!Array.isArray(rows)) {
+      alert('Ошибка загрузки БД');
+      return;
+    }
+    dataTableBody.innerHTML = '';
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="p-3 border-b">${r.id}</td>
+        <td class="p-3 border-b">${r.department}</td>
+        <td class="p-3 border-b">${r.parent_name}</td>
+        <td class="p-3 border-b">${r.phone}</td>
+        <td class="p-3 border-b">${r.child_name}</td>
+        <td class="p-3 border-b">${r.birth_date}</td>`;
+      dataTableBody.appendChild(tr);
+    });
+  } catch (err) {
+    console.error(err);
+    alert('Не удалось загрузить базу данных');
+  }
+}
+
+document.querySelector('[data-tab="database"]').addEventListener('click', loadDatabase);
+
+const deptHeader = document.getElementById('departmentHeader');
+const deptArrow = document.getElementById('deptArrow');
+const metroList = document.getElementById('metroList');
+let dbRows = [];
+
+
+// === выпадающий список метро ===
+metroList.classList.add(
+  'transition-all',
+  'duration-500',
+  'overflow-hidden',
+  'max-h-0',
+  'opacity-0'
+);
+
+let isMetroOpen = false;
+
+// исходное состояние стрелки
+deptArrow.classList.add('transition-transform', 'duration-300', 'rotate-0');
+
+// открытие / закрытие выпадающего списка
+deptHeader.addEventListener('click', () => {
+  if (!isMetroOpen) {
+    metroList.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      metroList.classList.remove('max-h-0', 'opacity-0');
+      metroList.classList.add('max-h-64', 'opacity-100');
+    });
+    deptArrow.classList.remove('rotate-0');
+    deptArrow.classList.add('rotate-180');
+    isMetroOpen = true;
+  } else {
+    metroList.classList.add('max-h-0', 'opacity-0');
+    metroList.classList.remove('max-h-64', 'opacity-100');
+    deptArrow.classList.remove('rotate-180');
+    deptArrow.classList.add('rotate-0');
+    setTimeout(() => metroList.classList.add('hidden'), 400);
+    isMetroOpen = false;
+  }
+});
+
+// клик вне списка — закрыть
+document.addEventListener('click', e => {
+  if (isMetroOpen && !deptHeader.contains(e.target) && !metroList.contains(e.target)) {
+    metroList.classList.add('max-h-0', 'opacity-0');
+    metroList.classList.remove('max-h-64', 'opacity-100');
+    deptArrow.classList.remove('rotate-180');
+    deptArrow.classList.add('rotate-0'); // возвращаем стрелку
+    setTimeout(() => metroList.classList.add('hidden'), 400);
+    isMetroOpen = false;
+  }
+});
+
+// функция отрисовки таблицы
+function renderTable(rows) {
+  dataTableBody.innerHTML = '';
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="p-3 border-b">${r.id}</td>
+      <td class="p-3 border-b">${r.department}</td>
+      <td class="p-3 border-b">${r.parent_name}</td>
+      <td class="p-3 border-b">${r.phone}</td>
+      <td class="p-3 border-b">${r.child_name}</td>
+      <td class="p-3 border-b">${r.birth_date}</td>`;
+    dataTableBody.appendChild(tr);
+  });
+}
+
+// загрузка базы и сохранение в память
+async function loadDatabase() {
+  try {
+    const res = await fetch('get_data.php');
+    dbRows = await res.json();
+    renderTable(dbRows);
+  } catch (err) {
+    console.error(err);
+    alert('Не удалось загрузить базу данных');
+  }
+}
+
+// обработчики кликов по пунктам метро
+metroList.querySelectorAll('li').forEach(item => {
+  item.addEventListener('click', () => {
+    const filter = item.dataset.filter;
+
+    if (!Array.isArray(dbRows) || dbRows.length === 0) {
+      alert('Данные ещё не загружены');
+      return;
+    }
+
+    const filtered = filter === 'all'
+      ? dbRows
+      : dbRows.filter(r => r.department.includes(filter));
+
+    renderTable(filtered);
+
+    // стрелка сразу возвращается в исходное положение
+    deptArrow.classList.remove('rotate-180');
+    deptArrow.classList.add('rotate-0');
+
+    // плавно закрываем список
+    metroList.classList.add('max-h-0', 'opacity-0');
+    metroList.classList.remove('max-h-64', 'opacity-100');
+    setTimeout(() => {
+      metroList.classList.add('hidden');
+      isMetroOpen = false;
+    }, 300);
+  });
+});
+
+
+
+
+// загрузка базы при открытии вкладки
+document.querySelector('[data-tab="database"]').addEventListener('click', loadDatabase);
+
+
+
+
+
+
+
+
+// === ЭКСПОРТ В EXCEL ===
+document.getElementById('exportExcel').addEventListener('click', async () => {
+  const res = await fetch('get_data.php');
+  const rows = await res.json();
+  if (!Array.isArray(rows) || rows.length === 0) {
+    alert('Нет данных для экспорта!');
+    return;
+  }
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'База данных');
+  XLSX.writeFile(wb, 'database.xlsx');
+});
+</script>
+
+
+
+
+</body>
+</html>
